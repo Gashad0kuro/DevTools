@@ -4,14 +4,14 @@ public class Function {
 
     private Number left = 2;
     private Number right = 2;
-    private char math = '+';
+    private char math = '!';
     private String operation = "Cos";
     private Number answer = 0;
-    //-----------Constructors
+
+    // -----------Constructors
     /* For Factorial */
-    public Function(char math, Number left) {
+    public Function(Number left) {
         this.left = left;
-        this.math = math;
     }
 
     /* For Exponentiation */
@@ -36,13 +36,26 @@ public class Function {
         }
     }
 
-    //------Parsers Function
+    // ------Parsers Function
 
-       /* Get String */
+    /* Get String */
 
-       private void setOperation(String operation) {
+    private void setOperation(String operation) {
         this.operation = operation.toLowerCase();
 
+    }
+
+    /* Number operation For Factorial */
+
+    private void setNumberFactorial(Number expression) {
+        this.left = expression;
+    }
+
+    private Number getFactorialNumberFromString(String number) {
+        Number ans = Double.parseDouble(number);
+        if (ans.equals(Double.valueOf(ans.intValue())))
+            ans = ans.intValue();
+        return ans;
     }
 
     /* Number operation For Sin Cos Abs */
@@ -57,6 +70,16 @@ public class Function {
         if (ans.equals(Double.valueOf(ans.intValue())))
             ans = ans.intValue();
         return ans;
+    }
+
+    // ---------CALCULATORS-------------------
+
+    private Integer factorial(Integer n) {
+        if (n > 2) {
+            return n * factorial(n - 1);
+        } else {
+            return 1;
+        }
     }
 
     private void calculate() {
@@ -88,22 +111,45 @@ public class Function {
         System.out.println("The result is: " + this.answer);
     }
 
-    //-----Parser
+    // ===================PARSERS====================
+
     /* parse Expression for Sin Cos Abs */
     public void parseCosSinAbsExpression(String expression) throws CalculatorException {
-        if (!expression.matches("[A-Za-z]{3}\\(\\-?[0-9]+([\\.,][0-9]+)?\\)"))
+
+        if (expression.matches("[A-Za-z]{3}\\(\\-?[0-9]+([\\.,][0-9]+)?\\)")) {
+            // Its Abs or Cos or Sin
+            // Set Number
+            setNumber(getNumberFromString(expression.substring(4, expression.length() - 1)));
+            // Set Operation
+            setOperation(expression.substring(0, 3));
+            // Calculate
+            calculate();
+
+        } else if (expression.matches("\\-?[0-9]+!")) {
+            // Its Factorial
+            // Set Number
+            setNumberFactorial(getFactorialNumberFromString(expression.substring(4, expression.length() - 1)));
+
+            //CalcilTE
+            factorial((this.left).intValue());
+
+        } else if (expression.matches("\\-?[0-9]+([\\.,][0-9]+)?\\^\\-?[0-9]+([\\.,][0-9]+)?")) {
+            // Its Exponential
+
+        } else {
             throw new CalculatorException("The expression does not match expression pattern");
-
-        // Set Number
-        setNumber(getNumberFromString(expression.substring(4, expression.length() - 1)));
-
-        // Set Operation
-        setOperation(expression.substring(0, 3));
-
-        // Calculate
-        calculate();
-        
-       
+        }
+        /*
+         * if (!expression.matches("[A-Za-z]{3}\\(\\-?[0-9]+([\\.,][0-9]+)?\\)")) throw
+         * new CalculatorException("The expression does not match expression pattern");
+         * 
+         * // Set Number setNumber(getNumberFromString(expression.substring(4,
+         * expression.length() - 1)));
+         * 
+         * // Set Operation setOperation(expression.substring(0, 3));
+         * 
+         * // Calculate calculate();
+         */
 
         /*
          * char[] mass = expression.toCharArray();
