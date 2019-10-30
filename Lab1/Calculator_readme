@@ -1,1 +1,2 @@
 Calculator with 3 classes & tests.
+Added new class "Function", which include such features as Cos, Sin, Abs, Factorial, Exponential.
