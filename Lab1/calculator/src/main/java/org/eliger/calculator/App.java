@@ -31,7 +31,7 @@ public final class App {
             break;
 
         case "2":
-            Function function = new Function("Cos(650)");
+            Function function = new Function("2 ^ 3");
             function.displayAnswer();
             break;
 
