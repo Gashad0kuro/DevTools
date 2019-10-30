@@ -141,6 +141,13 @@ public class Function {
 
     // ===================PARSER====================
 
+    // ----USersFunction
+    // #1
+    public void setExpression(String expression) throws CalculatorException {
+        parseExpression(expression);
+    }
+
+    // #2
     /* parse Expression for Sin Cos Abs */
     public void parseExpression(String expression) throws CalculatorException {
 

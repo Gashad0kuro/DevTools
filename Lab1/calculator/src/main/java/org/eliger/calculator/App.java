@@ -9,7 +9,7 @@ public final class App {
         Calculator calc = new Calculator(1, 2, '+');
         // System.out.printf("%s %s %s = %s\n", calc.getLeft(), calc.getMath(),
         // calc.getRight(), calc.calculate());
-        
+
         System.out.print(
                 "Hello! Select calculator: \nEnter \"1\" to use ordinary calculator. \nEnter \"2\" to use functions. \nEnter anything else to exit. \n");
         String answ = System.console().readLine();
@@ -32,8 +32,20 @@ public final class App {
 
         case "2":
             Function function = new Function("2 ^ 3");
-            function.displayAnswer();
-            break;
+            while (true) {
+                System.out.print("Input expression to calculate (or \"exit\" to stop): ");
+                String line = System.console().readLine();
+                if (line.equals("exit"))
+                    break;
+                try {
+                    function.setExpression(line);
+                    function.displayAnswer();
+                } catch (Exception ex) {
+                    System.out.println("Input is invalid:");
+                    ex.printStackTrace();
+                }
+            }
+          break;
 
         default:
             break;
