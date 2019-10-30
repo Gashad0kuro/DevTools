@@ -29,7 +29,7 @@ public class Function {
 
     public Function(String operation) {
         try {
-            parseFeatureExpression(operation);
+            parseCosSinAbsExpression(operation);
         } catch (CalculatorException e) {
             // Auto-generated catch block
             e.printStackTrace();
@@ -90,7 +90,7 @@ public class Function {
 
     //-----Parser
     /* parse Expression for Sin Cos Abs */
-    public void parseFeatureExpression(String expression) throws CalculatorException {
+    public void parseCosSinAbsExpression(String expression) throws CalculatorException {
         if (!expression.matches("[A-Za-z]{3}\\(\\-?[0-9]+([\\.,][0-9]+)?\\)"))
             throw new CalculatorException("The expression does not match expression pattern");
 
@@ -102,9 +102,8 @@ public class Function {
 
         // Calculate
         calculate();
-
-        // Display answer
-        displayAnswer();
+        
+       
 
         /*
          * char[] mass = expression.toCharArray();
